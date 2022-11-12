@@ -1,4 +1,3 @@
-#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
   
@@ -41,7 +40,7 @@ void push(STACK* stack, int item)
     
     stack->array[++stack->top] = item;
     printf("            |------------------------------------------------------------------------------|\n");
-    printf("          ! | %d PUSHED TO STACK.                                                          \n", item);
+    printf("          ! | %d PUSHED TO STACK.                                                           \n", item);
     printf("            |------------------------------------------------------------------------------|\n");
     return;
 }
@@ -89,6 +88,7 @@ int main()
                 stackCreated = 1;
                 break;
             case 2: 
+                printf("            |------------------------------------------------------------------------------|\n");
                 if(stackCreated == 1){
                     int val;
                     printf("         -> | Enter element to push in Stack.                                              |\n");
@@ -96,16 +96,15 @@ int main()
                     scanf("%d", &val);
                     push(stack, val);
                 } else{
-                    printf("            |------------------------------------------------------------------------------|\n");
                     printf("          ! | FIRST CREATE STACK.                                                          |\n");
                     printf("            |------------------------------------------------------------------------------|\n");
                 }
                 break;
             case 3: 
+                printf("            |------------------------------------------------------------------------------|\n");
                 if(stackCreated == 1){
                     pop(stack);
                 } else{
-                    printf("            |------------------------------------------------------------------------------|\n");
                     printf("          ! | FIRST CREATE STACK.                                                          |\n");
                     printf("            |------------------------------------------------------------------------------|\n");
                 }
