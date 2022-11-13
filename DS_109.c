@@ -7,8 +7,7 @@ typedef struct Stack {
     int* array;
 } STACK;
 
-STACK* createStack(unsigned capacity)
-{
+STACK* createStack(unsigned capacity){
     STACK* stack = (STACK*)malloc(sizeof(STACK));
     stack->capacity = capacity;
     stack->top = -1;
@@ -19,18 +18,15 @@ STACK* createStack(unsigned capacity)
     return stack;
 }
 
-int overflow(STACK* stack)
-{
+int overflow(STACK* stack){
     return stack->top == stack->capacity - 1;
 }
   
-int underflow(STACK* stack)
-{
+int underflow(STACK* stack){
     return stack->top == -1;
 }
 
-void push(STACK* stack, int item)
-{
+void push(STACK* stack, int item){
     if (overflow(stack)){
         printf("            |------------------------------------------------------------------------------|\n");
         printf("          ! | STACK OVERFLOW.                                                              |\n");
@@ -45,8 +41,7 @@ void push(STACK* stack, int item)
     return;
 }
   
-void pop(STACK* stack)
-{
+void pop(STACK* stack){
     if (underflow(stack)){
         printf("            |------------------------------------------------------------------------------|\n");
         printf("          ! | STACK UNDERFLOW.                                                             |\n");
@@ -59,8 +54,7 @@ void pop(STACK* stack)
     return;
 }
   
-int main()
-{
+int main(){
 
     int menu = 1;
     int stackCreated = 0;
