@@ -9,7 +9,7 @@ struct Stack {
 
 char infixExpression[100];
 char postfixExpression[100];
-int length = 0;;
+int length = 0;
 
 struct Stack* createStack(unsigned capacity){
     struct Stack* stack = (struct Stack*)malloc(sizeof(struct Stack));
