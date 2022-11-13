@@ -84,6 +84,8 @@ void evaluatePostfixExpression(){
     printf(" Evaluation | ");
     printf("%d", result);
     printf("\n            |------------------------------------------------------------------------------|\n");
+
+    return;
 }
 
 int main(){
