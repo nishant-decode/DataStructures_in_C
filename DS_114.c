@@ -134,6 +134,7 @@ void dequeueL(){
         return;
 	} else if(front == rear){
 		front = rear = NULL;
+        rear->next = front;
 	} else{
 		front = front->next;
 		rear->next = front;
