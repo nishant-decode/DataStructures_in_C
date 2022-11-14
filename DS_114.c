@@ -94,7 +94,7 @@ void displayQueue(struct Queue* queue) {
     return;
 }
 
-/* LINKED LIST IMPLEMENTATION OF CIRCULAR LIST */
+/* LINKED LIST IMPLEMENTATION OF CIRCULAR QUEUE */
 
 struct node{
 	int data;
