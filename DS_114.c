@@ -97,7 +97,7 @@ void displayQueue(struct Queue* queue) {
 /* LINKED LIST IMPLEMENTATION OF CIRCULAR QUEUE */
 
 struct node{
-	int data;
+	int DATA;
 	struct node* next;
 };
 
@@ -107,7 +107,7 @@ struct node *rear = NULL;
 void enqueueL(int val){
 	struct node* temp = (struct node*)malloc(sizeof(struct node));
 
-	temp->data = val;
+	temp->DATA = val;
 	temp->next = NULL;
 
 	if((rear==NULL)&&(front==NULL)){
@@ -119,7 +119,7 @@ void enqueueL(int val){
 		temp->next = front;
 	}
     printf("            |------------------------------------------------------------------------------------------|\n");
-    printf("          ! | %d ENQUEUED TO QUEUE.                                                                     \n", temp->data);
+    printf("          ! | %d ENQUEUED TO QUEUE.                                                                     \n", temp->DATA);
     printf("            |------------------------------------------------------------------------------------------|\n");
     return;
 }
@@ -140,7 +140,7 @@ void dequeueL(){
 		rear->next = front;
 	}
     printf("            |------------------------------------------------------------------------------------------|\n");
-    printf("          ! | %d DEQUEUED FROM QUEUE.                                                                   \n", temp->data);
+    printf("          ! | %d DEQUEUED FROM QUEUE.                                                                   \n", temp->DATA);
     printf("            |------------------------------------------------------------------------------------------|\n");
     free(temp);
     return;
@@ -155,10 +155,10 @@ void displayQueueL(){
 	} else{
         printf("      Queue | Front -> |");
 		while(temp != rear){
-			printf(" %d |", temp->data);
+			printf(" %d |", temp->DATA);
 			temp = temp->next;
 		}
-        printf(" %d |", temp->data);
+        printf(" %d |", temp->DATA);
         printf(" <- Rear\n");
         printf("            |------------------------------------------------------------------------------------------|\n");
 	}
