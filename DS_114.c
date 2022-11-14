@@ -103,7 +103,6 @@ struct node{
 
 struct node *front = NULL;
 struct node *rear = NULL;
-int size;
 
 void enqueueL(int val){
 	struct node* temp = (struct node*)malloc(sizeof(struct node));
@@ -232,8 +231,6 @@ int main(){
             }
             case 2:{
                 int subMenu = 1;
-
-                struct Queue* queue = createQueue(100);
 
                 while(subMenu){
                     int subMenuOption;
