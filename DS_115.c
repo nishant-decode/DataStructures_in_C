@@ -4,7 +4,7 @@
 /* LINKED LIST IMPLEMENTATION OF QUEUE */
 
 struct node{
-	int data;
+	int DATA;
 	struct node* next;
 };
 
@@ -14,7 +14,7 @@ struct node *rear = NULL;
 void enqueue(int val){
 	struct node* temp = (struct node*)malloc(sizeof(struct node));
 
-	temp->data = val;
+	temp->DATA = val;
 	temp->next = NULL;
 
 	if((rear==NULL)&&(front==NULL)){
@@ -24,7 +24,7 @@ void enqueue(int val){
 		rear = temp;
 	}
     printf("            |------------------------------------------------------------------------------------------|\n");
-    printf("          ! | %d ENQUEUED TO QUEUE.                                                                     \n", temp->data);
+    printf("          ! | %d ENQUEUED TO QUEUE.                                                                     \n", temp->DATA);
     printf("            |------------------------------------------------------------------------------------------|\n");
     return;
 }
@@ -43,7 +43,7 @@ void dequeue(){
 		front = front->next;
 	}
     printf("            |------------------------------------------------------------------------------------------|\n");
-    printf("          ! | %d DEQUEUED FROM QUEUE.                                                                   \n", temp->data);
+    printf("          ! | %d DEQUEUED FROM QUEUE.                                                                   \n", temp->DATA);
     printf("            |------------------------------------------------------------------------------------------|\n");
     free(temp);
     return;
@@ -58,7 +58,7 @@ void displayQueue(){
 	} else{
         printf("      Queue | Front -> |");
 		while(temp != NULL){
-			printf(" %d |", temp->data);
+			printf(" %d |", temp->DATA);
 			temp = temp->next;
 		}
         printf(" <- Rear\n");
@@ -73,12 +73,12 @@ struct node *TOS = NULL;
 void push(int val){
     struct node *temp = (struct node*)malloc(sizeof(struct node));
 
-    temp->data = val;
+    temp->DATA = val;
     temp->next = TOS;
     TOS = temp;
 
     printf("            |------------------------------------------------------------------------------------------|\n");
-    printf("          ! | %d PUSHED TO STACK.                                                                       \n", temp->data);
+    printf("          ! | %d PUSHED TO STACK.                                                                       \n", temp->DATA);
     printf("            |------------------------------------------------------------------------------------------|\n");
     return; 
 }
@@ -94,7 +94,7 @@ void pop(){
     }
     
     printf("            |------------------------------------------------------------------------------------------|\n");
-    printf("          ! | %d POPED FROM STACK.                                                                      \n", TOS->data);
+    printf("          ! | %d POPED FROM STACK.                                                                      \n", TOS->DATA);
     printf("            |------------------------------------------------------------------------------------------|\n");
 
     temp = TOS;
@@ -115,7 +115,7 @@ void displayStack(){
     printf("      Stack |");
     while(temp != NULL)
     {
-        printf(" %d -> ", temp->data);
+        printf(" %d -> ", temp->DATA);
         temp = temp->next;
     }
     printf("NULL\n");
