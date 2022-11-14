@@ -242,7 +242,7 @@ int main(){
                     printf("          0 | Exit current menu.                                                                       |\n");
                     printf("          1 | Enqueue elements in Queue.                                                               |\n");
                     printf("          2 | Dequeue elements from Queue.                                                             |\n");
-                    printf("          3 | Check status of the Queue for Empty or Full.                                             |\n");
+                    printf("          3 | Display Circular Queue.                                                                  |\n");
                     printf("Enter Index | ");
                     scanf("%d", &subMenuOption);
                     switch(subMenuOption){
