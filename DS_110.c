@@ -41,6 +41,62 @@ int isOperand(char ch){
     return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z');
 }
 
+int isOperator(char ch){
+    return (ch == '+' || ch <= '*') || (ch == '-' || ch == '/');
+}
+
+int validateInfixExpression(){
+    int operand = 0;
+    int operator = 0;
+    int paranthesis = 0;
+
+    for (int k = 0; k < length; k++){
+        if(infixExpression[k] != '(' && infixExpression[k] != ')'){
+            if(isOperand(infixExpression[k])){
+                operand++;
+                operator = 0;
+                if(operand== 2){
+                    return 0;
+                }
+            } else {
+                operator++;
+                operand = 0;
+                if(operator == 2){
+                    return 0;
+                }
+            }
+        }
+    }
+    
+    operand = 0;
+    operator = 0;
+
+    for (int k = 0; k < length; k++){
+        if(infixExpression[k] != '(' && infixExpression[k] != ')'){
+            if(isOperand(infixExpression[k])) operand++;
+            else operator++;
+        }
+    }
+
+    if(operator != operand-1) return 0;
+    
+    for (int k = 0; k < length; k++){
+        if(infixExpression[k] == '('){
+            if(isOperator(infixExpression[k+1])) return 0; 
+            paranthesis++;
+        }
+        if(infixExpression[k] == ')'){ 
+            paranthesis--;
+            if(paranthesis < 0) return 0;
+            if(isOperator(infixExpression[k-1])) return 0;
+        }
+    }
+
+    if(paranthesis != 0) return 0;
+    
+    return 1;
+}
+
 int precedence(char ch){
     switch (ch) {
     case '+':
@@ -59,7 +115,7 @@ int precedence(char ch){
 
 void displayExpression(){
     char ch;
-    int i = length;
+    int i = 0;
 
     if(length == 0){
         printf("            |------------------------------------------------------------------------------|\n");
@@ -69,12 +125,12 @@ void displayExpression(){
     }
     printf("            |------------------------------------------------------------------------------|\n");
     printf(" Expression | ");
-    while(i){
-        ch = postfixExpression[length - i];
+    while(i<length){
+        ch = postfixExpression[i];
         printf("%c", ch);
-        i -= 1;
+        i += 1;
     }
-    printf("            |------------------------------------------------------------------------------|\n");
+    printf("\n            |------------------------------------------------------------------------------|\n");
     return;
 }
 
@@ -83,7 +139,7 @@ void infixToPostfix(){
   
     struct Stack* stack = createStack(length);
   
-    for (i = 0, k = -1; infixExpression[i]; ++i) {
+    for (i = 0, k = -1; i < length; ++i) {
 
         if (isOperand(infixExpression[i]))
             postfixExpression[++k] = infixExpression[i];
@@ -113,22 +169,25 @@ void infixToPostfix(){
 
 void getInput(){
     int i = 0;
-    char ch;
 
     printf("            |------------------------------------------------------------------------------|\n");
-    printf("          ! | ENTER CHARACTERS AND ADD 'Q' TO STOP, THEN PRESS ENTER.                      |\n");
+    printf("          ! | ENTER INFIX EXPRESSION, THEN PRESS ENTER.                                    |\n");
     printf("            |------------------------------------------------------------------------------|\n");
     printf(" Expression | ");
-    scanf("%c", &ch);
-    while(ch != 'Q'){
-        infixExpression[i] = ch;
-        scanf("%c", &ch);
+    scanf("%s",infixExpression);
+    while(infixExpression[i] != '\0')
         i += 1;
-    }
-    printf("            |------------------------------------------------------------------------------|\n");
-    printf("          ! | INPUT EXPRESSION TAKEN.                                                      |\n");
-    printf("            |------------------------------------------------------------------------------|\n");
     length = i;
+    if(validateInfixExpression()){
+        printf("            |------------------------------------------------------------------------------|\n");
+        printf("          ! | INPUT EXPRESSION TAKEN.                                                      |\n");
+        printf("            |------------------------------------------------------------------------------|\n"); 
+    } else{
+        printf("            |------------------------------------------------------------------------------|\n");
+        printf("          ! | ENTER A VALID EXPRESSION.                                                    |\n");
+        printf("            |------------------------------------------------------------------------------|\n");
+        length = 0;
+    }
     return;
 }
 
