@@ -28,9 +28,7 @@ char peek(struct Stack* stack){
 }
   
 char pop(struct Stack* stack){
-    if (!underflow(stack))
-        return stack->array[stack->top--];
-    return '$';
+    return stack->array[stack->top--];
 }
 
 void push(struct Stack* stack, char op){
@@ -42,7 +40,7 @@ int isOperand(char ch){
 }
 
 int isOperator(char ch){
-    return (ch == '+' || ch <= '*') || (ch == '-' || ch == '/');
+    return (ch == '+' || ch == '*' || ch == '-' || ch == '/' || ch == '^');
 }
 
 int validateInfixExpression(){
@@ -79,7 +77,7 @@ int validateInfixExpression(){
     }
 
     if(operator != operand-1) return 0;
-    
+
     for (int k = 0; k < length; k++){
         if(infixExpression[k] == '('){
             if(isOperator(infixExpression[k+1])) return 0; 
@@ -155,8 +153,14 @@ void infixToPostfix(){
         } 
         
         else{
-            while (!underflow(stack) && precedence(infixExpression[i]) <= precedence(peek(stack)))
-                postfixExpression[++k] = pop(stack);
+            if(precedence(infixExpression[i]) == 3){
+                while (!underflow(stack) && precedence(infixExpression[i]) < precedence(peek(stack)))
+                    postfixExpression[++k] = pop(stack);
+            }
+            else {
+                while (!underflow(stack) && precedence(infixExpression[i]) <= precedence(peek(stack)))
+                    postfixExpression[++k] = pop(stack);
+            }
             push(stack, infixExpression[i]);
         }
     }

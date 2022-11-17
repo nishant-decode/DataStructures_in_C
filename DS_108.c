@@ -59,9 +59,9 @@ struct node *insertNode(Node *head){
         while(temp->next!=NULL){
             temp = temp->next;
         }
-        if(power >= temp->coefficient){
+        if(power >= temp->power){
             printf("            |------------------------------------------------------------------------------|\n");
-            printf("          ! | ENTER POWER GREATER THAN LAST NODE POWER FOR CORRECT POLYNOMIAL EXPRESSION.  |\n");
+            printf("          ! | ENTER POWER LESS THAN LAST NODE POWER FOR CORRECT POLYNOMIAL EXPRESSION.     |\n");
             printf("            |------------------------------------------------------------------------------|\n");
             return head;
         }

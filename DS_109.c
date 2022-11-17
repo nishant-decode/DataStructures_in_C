@@ -78,7 +78,11 @@ int main(){
 
         switch(menuOption){
             case 1: 
-                stack = createStack(100);
+                int size;
+                printf("         -> | Enter size to create the Stack.                                              |\n");
+                printf("       Size | ");
+                scanf("%d", &size);
+                stack = createStack(size);
                 stackCreated = 1;
                 break;
             case 2: 
