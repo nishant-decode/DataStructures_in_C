@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 int array[100];
-int length;
+int length = 0;
 
 void insertElement(){
     int element;
@@ -53,6 +53,26 @@ void insertionSort(){
     }
 }
 
+void swap(int *xp, int *yp){
+    int temp = *xp;
+    *xp = *yp;
+    *yp = temp;
+}
+ 
+void selectionSort(){
+    int i, j, min_idx;
+ 
+    for (i = 0; i < length-1; i++){
+        min_idx = i;
+        for (j = i+1; j < length; j++)
+          if (array[j] < array[min_idx])
+            min_idx = j;
+ 
+           if(min_idx != i)
+            swap(&array[min_idx], &array[i]);
+    }
+}
+
 //Binary Search function
 int binarySearch(int arr[], int l, int r, int x){
     if (r >= l){
@@ -75,7 +95,6 @@ void searchElement(){
     if (length == 0)
     {
         printf("            |-------------------------------------------------------------------------------------|\n");
-        printf("            |-------------------------------------------------------------------------------------|\n");
         printf("          ! | ARRAY IS EMPTY.                                                                     |\n");
         printf("            |-------------------------------------------------------------------------------------|\n");
         return;
@@ -87,15 +106,13 @@ void searchElement(){
     printf("    Element | ");
     scanf("%d", &key);
 
-    insertionSort();
+    selectionSort();
 
     result = binarySearch(array, 0, length, key);
 
     if(result == -1){
         printf("            |-------------------------------------------------------------------------------------|\n");
         printf("          ! | ELEMENT NOT FOUND.                                                                  |\n");
-        printf("            |-------------------------------------------------------------------------------------|\n");
-        return;
     } else{
         printf("            |-------------------------------------------------------------------------------------|\n");
         printf("          ! | ELEMENT FOUND AT INDEX %d.                                                           \n", result);
