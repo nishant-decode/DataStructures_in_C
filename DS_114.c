@@ -116,7 +116,7 @@ void enqueueL(int val){
 	} else{
 		rear->next = temp;
 		rear = temp;
-		temp->next = front;
+		rear->next = front;
 	}
     printf("            |------------------------------------------------------------------------------------------|\n");
     printf("          ! | %d ENQUEUED TO QUEUE.                                                                     \n", temp->DATA);
@@ -186,7 +186,13 @@ int main(){
             case 1: {
                 int subMenu = 1;
 
-                struct Queue* queue = createQueue(10);
+                int size;
+                printf("         -> | Enter size to create the Queue.                                                          |\n");
+                printf("       Size | ");
+                scanf("%d", &size);
+                struct Queue* queue = createQueue(size);
+                printf("            |------------------------------------------------------------------------------------------|\n");
+
 
                 while(subMenu){
                     int subMenuOption;
