@@ -10,8 +10,9 @@ struct Queue {
 struct Queue* createQueue(unsigned capacity){
 	struct Queue* queue = (struct Queue*)malloc(sizeof(struct Queue));
 	queue->capacity = capacity;
-	queue->front = queue->size = 0;
-	queue->rear = capacity - 1;
+    queue->size = 0;
+	queue->front = 0;
+    queue->rear = -1;
 	queue->array = (int*)malloc(queue->capacity * sizeof(int));
 	return queue;
 }
@@ -27,14 +28,15 @@ int isEmpty(struct Queue* queue){
 void enqueue(struct Queue* queue, int item){
 	if (isFull(queue)){
         printf("            |------------------------------------------------------------------------------|\n");
-        printf("          ! | QUEUE IS FULL.                                                               |\n");
+        printf("          ! | QUEUE OVERFLOW.                                                              |\n");
         printf("            |------------------------------------------------------------------------------|\n");
 		return;
     }
     
-	queue->rear = (queue->rear + 1) % queue->capacity;
+    queue->rear = queue->rear + 1;
 	queue->array[queue->rear] = item;
 	queue->size = queue->size + 1;
+
 	printf("            |------------------------------------------------------------------------------|\n");
     printf("          ! | %d ENQUEUED TO QUEUE.                                                         \n", item);
     printf("            |------------------------------------------------------------------------------|\n");
@@ -43,12 +45,13 @@ void enqueue(struct Queue* queue, int item){
 void dequeue(struct Queue* queue){
 	if (isEmpty(queue)){
         printf("            |------------------------------------------------------------------------------|\n");
-        printf("          ! | QUEUE IS EMPTY.                                                              |\n");
+        printf("          ! | QUEUE UNDERFLOW.                                                             |\n");
         printf("            |------------------------------------------------------------------------------|\n");
 		return;
     }
+
 	int item = queue->array[queue->front];
-	queue->front = (queue->front + 1) % queue->capacity;
+    queue->front = queue->front + 1;
 	queue->size = queue->size - 1;
 
     printf("            |------------------------------------------------------------------------------|\n");
@@ -100,14 +103,18 @@ int main(){
         printf("          1 | Create Queue using Arrays.                                                   |\n");
         printf("          2 | Enqueue elements in Queue.                                                   |\n");
         printf("          3 | Dequeue elements from Queue.                                                 |\n");
-        printf("          4 | Check status of the Queue for Empty or Full.                                 |\n");
+        printf("          4 | Check status of Queue.                                                       |\n");
         printf("          5 | Check Front and Rear element of the Queue.                                   |\n");
         printf("Enter Index | ");
         scanf("%d", &menuOption);
 
         switch(menuOption){
             case 1: 
-                queue = createQueue(100);
+                int size;
+                printf("         -> | Enter size to create the Queue.                                              |\n");
+                printf("       Size | ");
+                scanf("%d", &size);
+                queue = createQueue(size);
                 queueCreated = 1;
                 break;
             case 2: 
@@ -148,10 +155,8 @@ int main(){
                 }
                 break;
             case 5:
-                if(!isEmpty(queue)){
-                    front(queue);
-                    rear(queue);
-                }
+                front(queue);
+                rear(queue);
                 break;
             case 0:
                 menu = 0;
