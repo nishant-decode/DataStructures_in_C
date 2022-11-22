@@ -36,26 +36,70 @@ void push(struct Stack* stack, char op){
     stack->array[++stack->top] = op;
 }
 
-void getInput(){
-    int i = 0;
-    char ch;
+int isDigit(char ch){
+    return ( ch >= '0' && ch <= '9');
+}
 
-    printf("            |------------------------------------------------------------------------------|\n");
-    printf("          ! | ENTER CHARACTERS AND ADD 'Q' TO STOP, THEN PRESS ENTER.                      |\n");
-    printf("            |------------------------------------------------------------------------------|\n");
-    printf(" Expression | ");
+int precedence(char ch){
+    switch (ch) {
+    case '+':
+    case '-':
+        return 1;
+  
+    case '*':
+    case '/':
+        return 2;
+    }
+    return -1;
+}
 
-    scanf("%c", &ch);
-    while(ch != 'Q'){
-        postfixExpression[i] = ch;
-        scanf("%c", &ch);
-        i += 1;
+int validPostfixExpression(){
+    int operand = 0;
+    int operator = 0;
+
+    for (int k = 0; k < length; k++){
+        if(isDigit(postfixExpression[k])){
+            operand++;
+        } else {
+            if(operand < 2) return 0;
+            if(precedence(postfixExpression[k]) < precedence(postfixExpression[k+1])) return 0;
+            operand -= 1;
+        }
+    }
+    
+    operand = 0;
+
+    for (int k = 0; k < length; k++){
+        if(isDigit(postfixExpression[k])) operand++;
+        else operator++;
     }
 
+    if(operator != operand-1) return 0;
+    
+    return 1;
+}
+
+void getInput(){
+    int i = 0;
+
     printf("            |------------------------------------------------------------------------------|\n");
-    printf("          ! | INPUT EXPRESSION TAKEN.                                                      |\n");
+    printf("          ! | ENTER INFIX EXPRESSION, SINGLE DIGITS AND OPERATORS ONLY, THEN PRESS ENTER.  |\n");
     printf("            |------------------------------------------------------------------------------|\n");
+    printf(" Expression | ");
+    scanf("%s",postfixExpression);
+    while(postfixExpression[i] != '\0')
+        i += 1;
     length = i;
+    if(validPostfixExpression()){
+        printf("            |------------------------------------------------------------------------------|\n");
+        printf("          ! | INPUT EXPRESSION TAKEN.                                                      |\n");
+        printf("            |------------------------------------------------------------------------------|\n"); 
+    } else{
+        printf("            |------------------------------------------------------------------------------|\n");
+        printf("          ! | ENTER A VALID EXPRESSION.                                                    |\n");
+        printf("            |------------------------------------------------------------------------------|\n");
+        length = 0;
+    }
     return;
 }
 
@@ -65,16 +109,16 @@ void evaluatePostfixExpression(){
 
     for (int i = 0; postfixExpression[i]; ++i)
     {
-        if (isdigit(postfixExpression[i]))
+        if (isDigit(postfixExpression[i]))
             push(stack, postfixExpression[i] - '0');
         else{
             int operand1 = pop(stack);
             int operand2 = pop(stack);
             switch (postfixExpression[i]){
-            case '+': push(stack, operand2 + operand1); break;
-            case '-': push(stack, operand2 - operand1); break;
-            case '*': push(stack, operand2 * operand1); break;
-            case '/': push(stack, operand2/operand1); break;
+                case '+': push(stack, operand2 + operand1); break;
+                case '-': push(stack, operand2 - operand1); break;
+                case '*': push(stack, operand2 * operand1); break;
+                case '/': push(stack, operand2/operand1); break;
             }
         }
     }
@@ -82,8 +126,8 @@ void evaluatePostfixExpression(){
     result = pop(stack);
     printf("            |------------------------------------------------------------------------------|\n");
     printf(" Evaluation | ");
-    printf("%d", result);
-    printf("\n            |------------------------------------------------------------------------------|\n");
+    printf("%d\n", result);
+    printf("            |------------------------------------------------------------------------------|\n");
 
     return;
 }
